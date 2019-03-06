@@ -8,7 +8,7 @@ const service = require('./services/service-swapi');
 
 Commander.description(`CLI to test multi-protocol API's for IoT
 
-${clc.yellow('Inicialmente estou usando a api swapi para fins de teste')}
+${clc.yellow('Inicialmente estou usando as api\'s swapi e reqres para fins de teste')}
 
 Currently supported protocols: ${clc.green(`
     - HTTP ✔️`)}
@@ -25,31 +25,44 @@ async function main() {
     Commander
         .version('v0.1.0')
         .option('-wp, --protocol [value]', 'Wanted protocol')
-        .option('-ps --post [value]', 'HTTP verb POST [CREATE]')
-        .option('-g --get [value]', 'HTTP verb GET [READ]')
-        .option('-p --put [value]', 'HTTP verb PUT [UPDATE]')
-        .option('-d --delete [value]', 'HTTP verb DELETE [DELETE]')
+        .option('-p, --posthttp [value]', 'HTTP verb POST [CREATE]')
+        .option('-g, --gethttp [value]', 'HTTP verb GET [READ]')
+        .option('-p, --puthttp [value]', 'HTTP verb PUT [UPDATE]')
+        .option('-d, --deletehttp [value]', 'HTTP verb DELETE [DELETE]')
 
         .parse(process.argv);
 
-    const { get } = Commander;
+    const get = Commander.gethttp;
 
     try {
-        const responses = [];
-
-        if (Commander.get) {
-            const result = await service.getCharactersByName(get);
-
-            for (let pessoa of result.results) {
-                responses.push(pessoa.name);
-            }
-
-            console.log('resultado: \n', responses);
-            return;
+        if (Commander.gethttp) {
+            return getHttp(get);
         }
     } catch (error) {
-        console.error(error);
+        console.error('deu ruim ',error);
     }
 }
 
 main();
+
+async function getHttp(get) {
+
+    let responses = [];
+
+    console.time('request');
+    const result = await service.getCharactersByName(get);
+    console.timeEnd('request');
+
+    // Teste de perfomance -> map vs foreach <- 
+    console.time('map-time');
+    const resultNames = result.map(character => character.name);
+    console.timeEnd('map-time');
+    
+    console.time('forof-time');
+    for (const pessoa of result) { 
+        responses.push(pessoa.name); 
+    }
+    console.timeEnd('forof-time');
+
+    console.log('Resultado: \n', resultNames);
+}
