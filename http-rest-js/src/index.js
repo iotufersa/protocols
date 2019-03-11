@@ -127,7 +127,7 @@ async function postHttp(user) {
 }
 
 async function putHttp(userUpdated) {
-    response = await reqRes.putReqRes(userUpdated);
+    const response = await reqRes.putReqRes(userUpdated);
     console.log(`
             Request status: ${clc.green(`${response.status}`)}
             Name: ${response.data.name}
@@ -139,8 +139,8 @@ async function putHttp(userUpdated) {
 async function deleteHttp(answer) {
     if(answer.answer){
         const response = await reqRes.deleteReqRes();
-        console.log(response)
+        console.log(response);
     }
     else     
-        console.log('User not deleted')
+        console.log('User not deleted');
 }
