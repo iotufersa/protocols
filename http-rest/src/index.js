@@ -32,37 +32,44 @@ async function main() {
 
         .parse(process.argv);
 
-    const get = Commander.gethttp;
+    // const post;
+    // const get = Commander.gethttp;
+    // const put;
+    // const delete;
 
     try {
-        if (Commander.gethttp) {
-            return getHttp(get);
-        }
+        if (Commander.posthttp)
+            return;
+        else if (Commander.gethttp)
+            getHttp(Commander.gethttp);
+        else if (Commander.puthttp)
+            return;
+        else if (Commander.deletehttp)
+            return;
+
+
     } catch (error) {
-        console.error('deu ruim ',error);
+        console.error('deu ruim ', error);
     }
 }
 
 main();
 
+// This function user service-swapi to 
 async function getHttp(get) {
 
-    let responses = [];
-
-    console.time('request');
     const result = await service.getCharactersByName(get);
-    console.timeEnd('request');
+    console.log('Resultado: \n', result);
 
     // Teste de perfomance -> map vs foreach <- 
-    console.time('map-time');
-    const resultNames = result.map(character => character.name);
-    console.timeEnd('map-time');
-    
-    console.time('forof-time');
-    for (const pessoa of result) { 
-        responses.push(pessoa.name); 
-    }
-    console.timeEnd('forof-time');
+    //console.time('map-time');
+    //const resultNames = result.map(character => character.name);
+    //console.timeEnd('map-time');
 
-    console.log('Resultado: \n', resultNames);
+    // console.time('forof-time');
+    // for (const pessoa of result) { 
+    //     responses.push(pessoa.name); 
+    // }
+    // console.timeEnd('forof-time');
+
 }
