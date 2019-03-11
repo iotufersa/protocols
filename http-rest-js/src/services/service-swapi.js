@@ -9,7 +9,7 @@ const URL = 'https://swapi.co/api/people';
 async function getCharactersByName(nome) {
     const url = `${URL}/?search=${nome}&format=json`;
     const response = await axios.get(url);
-    return response.data.results.map(character => character.name);
+    return response.data.results.map(character =>  character.name);
 }
 
 module.exports = {
