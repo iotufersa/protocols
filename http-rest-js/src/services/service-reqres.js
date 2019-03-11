@@ -16,7 +16,23 @@ async function postReqRes(user) {
     return response;
 }
 
+async function putReqRes(userUpdated) {
+
+    const url = `${URL}/users/2`;
+    const response = await axios.put(url, userUpdated);
+    return response;
+}
+
+async function deleteReqRes() {
+
+    const url = `${URL}/users/2`;
+    const response = await axios.delete(url);
+    return response;
+}
+
 module.exports = {
     postReqRes,
-    getReqRes
+    getReqRes,
+    putReqRes,
+    deleteReqRes
 };

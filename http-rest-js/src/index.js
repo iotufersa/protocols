@@ -17,17 +17,23 @@ const getQuestions = [{
     message: 'Name to search in API:'
 }];
 
-const postQuestions = [{
-        type: 'input',
-        name: 'name',
-        message: 'Name to post:'
-    },
-    {
-        type: 'input',
-        name: 'job',
-        message: 'Job to post:'
-    }
+const ptQuestions = [{
+    type: 'input',
+    name: 'name',
+    message: 'Name:'
+},
+{
+    type: 'input',
+    name: 'job',
+    message: 'Job:'
+}
 ];
+
+const deleteQuestions = [{
+    type: 'confirm',
+    name: 'answer',
+    message: 'Are you sure you want to delete the user?'
+}];
 
 
 Commander
@@ -61,11 +67,25 @@ async function main() {
         .alias('p')
         .description('HTTP verb POST')
         .action(() => {
-            prompt(postQuestions).then(answers => postHttp(answers));
+            prompt(ptQuestions).then(answers => postHttp(answers));
         });
 
     Commander
-        .parse(process.argv);
+        .command('put')
+        .alias('pt')
+        .description('HTTP verb PUT')
+        .action(() => {
+            prompt(ptQuestions).then(answers => putHttp(answers));
+        });
+    Commander
+        .command('delete')
+        .alias('d')
+        .description('HTTP verb DELETE')
+        .action(() => {
+            prompt(deleteQuestions).then(answers => deleteHttp(answers));
+        });
+
+    Commander.parse(process.argv);
 
 }
 
@@ -104,4 +124,23 @@ async function postHttp(user) {
     //         Error:  ${clc.red(`${error.response.data.error}`)}
     //         `);
     //     });
+}
+
+async function putHttp(userUpdated) {
+    response = await reqRes.putReqRes(userUpdated);
+    console.log(`
+            Request status: ${clc.green(`${response.status}`)}
+            Name: ${response.data.name}
+            Job: ${response.data.job}
+            Updated at: ${clc.green(`${response.data.updatedAt}`)}
+            `);
+}
+
+async function deleteHttp(answer) {
+    if(answer.answer){
+        const response = await reqRes.deleteReqRes();
+        console.log(response)
+    }
+    else     
+        console.log('User not deleted')
 }
