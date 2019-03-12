@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/iotufersa/protocols#readme",
   "dependencies": {
-    "mqtt": "^2.18.8"
+    "audio-context": "^1.0.3",
+    "cli-color": "^1.4.0",
+    "mqtt": "^2.18.8",
+    "play-sound": "^1.1.3"
   }
 }
