@@ -2,7 +2,7 @@ const mqtt = require('mqtt');
 const clc = require('cli-color');
 const audio = require('./audio');
 
-const broker = 'mqtt://broker.hivemq.com';
+const broker = 'mqtt://test.mosquitto.org';
 const topic = 'IotUfersa';
 
 function main() {

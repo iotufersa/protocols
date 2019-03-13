@@ -77,6 +77,7 @@ async function main() {
         .action(() => {
             prompt(ptQuestions).then(answers => putHttp(answers));
         });
+
     Commander
         .command('delete')
         .alias('d')
@@ -94,7 +95,10 @@ main();
 // Use service-swapi to exemplify GET HTTP
 async function getHttp(name) {
     const response = await swapi.getCharactersByName(name);
-    console.log('Response: \n', response);
+    const filterResponse = response.filter(character => {
+        return character.charAt(0).toLowerCase() === name.charAt(0).toLowerCase();
+    });
+    console.log('Response: \n', filterResponse);
 }
 
 // Use service-reqres to exemplify POST HTTP
@@ -126,6 +130,7 @@ async function postHttp(user) {
     //     });
 }
 
+// Use service-reqres to exemplify PUT HTTP
 async function putHttp(userUpdated) {
     const response = await reqRes.putReqRes(userUpdated);
     console.log(`
@@ -136,11 +141,18 @@ async function putHttp(userUpdated) {
             `);
 }
 
+// Use service-reqres to exemplify DELETE HTTP
 async function deleteHttp(answer) {
-    if(answer.answer){
-        const response = await reqRes.deleteReqRes();
-        console.log(response);
-    }
-    else     
+    if (answer.answer) {
+        try {
+            const response = await reqRes.deleteReqRes();
+            console.log(`
+                    Request status: ${clc.green(`${response.status}`)}
+                    Usuário deletado com Sucesso
+                    `);
+        } catch (error) {
+            console.error(error);
+        }
+    } else
         console.log('User not deleted');
 }
