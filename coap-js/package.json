@@ -1,0 +1,23 @@
+{
+  "name": "coap-ufersa",
+  "version": "0.0.1",
+  "description": "A simple software to test CoAp protocol.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iotufersa/protocols.git"
+  },
+  "author": "João Goulart Mendes de Freitas Filho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iotufersa/protocols/issues"
+  },
+  "homepage": "https://github.com/iotufersa/protocols#readme",
+  "dependencies": {
+    "cli-color": "^1.4.0",
+    "coap": "^0.23.1"
+  }
+}
