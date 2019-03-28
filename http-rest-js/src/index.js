@@ -92,7 +92,11 @@ async function main() {
 
 main();
 
-// Use service-swapi to exemplify GET HTTP
+/**
+ * Async function, use service-swapi to exemplify GET HTTP
+ * and show the results
+ * @param {string} name - name to get using swapi service
+ */
 async function getHttp(name) {
     const response = await swapi.getCharactersByName(name);
     const filterResponse = response.filter(character => {
@@ -101,7 +105,11 @@ async function getHttp(name) {
     console.log('Response: \n', filterResponse);
 }
 
-// Use service-reqres to exemplify POST HTTP
+/**
+ * Async function, use service-reqres to exemplify POST HTTP
+ * and show the results
+ * @param {string} user - user to post using reqRes service
+ *  */
 async function postHttp(user) {
     const response = await reqRes.postReqRes(user);
     console.log(`
@@ -130,7 +138,12 @@ async function postHttp(user) {
     //     });
 }
 
-// Use service-reqres to exemplify PUT HTTP
+
+/**
+ * Async function, use service-reqres to exemplify PUT HTTP
+ * and show results
+ * @param {string} userUpdated - user to update using reqRes service
+ */
 async function putHttp(userUpdated) {
     const response = await reqRes.putReqRes(userUpdated);
     console.log(`
@@ -141,7 +154,12 @@ async function putHttp(userUpdated) {
             `);
 }
 
-// Use service-reqres to exemplify DELETE HTTP
+
+/**
+ * Async function, use service-reqres to exemplify DELETE HTTP
+ * and show results.
+ * @param {Boolean} answer - user response
+ */
 async function deleteHttp(answer) {
     if (answer.answer) {
         try {

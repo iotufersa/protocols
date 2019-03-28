@@ -2,7 +2,7 @@ const mqtt = require('mqtt');
 const clc = require('cli-color');
 const audio = require('./audio');
 
-const broker = 'mqtt://test.mosquitto.org';
+const broker = 'mqtt://broker.hivemq.com';
 const topic = 'IotUfersa';
 
 function main() {
@@ -18,18 +18,21 @@ function main() {
 
         client.on('message', (topic, message) => {
             console.log(`TOPIC: ${topic}\nMESSAGE: ${message}`);
-            if(message.toString() === 'beep') {
+            if(!message.toString()) 
                 audio.beep();
-            }
-            else if(message.toString() === 'marilia') {
+            else if(message.toString() === 'marilia') 
                 audio.sound(message.toString());
-            }
-            else {
+            else if(message.toString() === 'dilsinho')
+                audio.sound(message.toString());
+            else if(message.toString() === 'bruno-marrone')
+                audio.sound(message.toString());
+            else if(message.toString() === 'edson-gomes')
+                audio.sound(message.toString());
+            else if(message.toString() === 'maiden')
+                audio.sound(message.toString());
+            else
                 audio.beep();
-            }
-
         });
-
     } catch (error) {
         console.error(clc.red('[STATUS] Não foi possível estabelecer comunicação'));
     }

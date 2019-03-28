@@ -19,6 +19,7 @@
   "dependencies": {
     "cli-color": "^1.4.0",
     "coap": "^0.23.1",
-    "commander": "^2.19.0"
+    "commander": "^2.19.0",
+    "inquirer": "^6.2.2"
   }
 }
