@@ -1,24 +1,72 @@
+/**
+ * Incoming message -> request
+ * Outgoing message -> response
+ */
+
+
 /* eslint-disable no-console */
-const coap        = require('coap')
-    , server    = coap.createServer(); // Create a server on coap://localhost:5683
+const clc = require('cli-color');
+const coap = require('coap');
 
-// the default CoAP port is 5683
-server.listen(() => {
+
+// Create a server on coap://localhost:5683
+function initCoapServer() {
+    const server = coap.createServer();
+    // the default CoAP port is 5683
     console.clear();
-    console.log('CoAp server is listening on coap://localhost/');   
-});
+    console.log(clc.green('CoAp server is listening on coap://localhost:5683'));   
+    return server;
+} 
 
 
-server.on('request', (req, res) => {
+
+
+
+function main() {
+    initCoapServer();
     
-    if(req.method === 'GET') {
-        console.log('Requisicao GET recebida!');
+    const server = initCoapServer();
+
+    server.listen();
+
+    server.on('request', (req, res) => {
+        if( req.method === 'GET' )
+            getCoap(req, res);
+        else if( req.method === 'POST' )
+            /* postCoap() */ console.log('Post method!');
+        else if( req.method === 'PUT' )
+            /* putCoap() */ console.log('Put method!');
+        else if( req.method === 'DELETE')
+            /* deleteCoap() */ console.log('Delete method!');
+    });
+}
+
+main();
+
+// Functions to GET, POST, PUT, DELETE methods.
+
+/**
+ * 
+ * @param {Object} req - Request{IncomingMessage}
+ * @param {Object} res - Response{OutgoingMessage}
+ * @return {void} void
+ * @throws {Error} Wrong request for this CoAp method
+ *
+ * */ 
+function getCoap(req, res) {
+    if( req.method === 'GET' ) {
+        console.log(clc.green('Requisicao GET recebida!'));
         res.end(`
-        --------------Resposta do servidor----------------
-            Using the + ${req.method} method on url ${req.url}
+        ${clc.green('--------------Resposta do servidor----------------')}
+                Using the ${req.method} method on url ${req.url}
         `); // Say hello to the client
-    }
-});
+    } else
+        throw new Error('Wrong request!');
+}
+
+
+
+
 
 /**
 * var coap       = require('coap')

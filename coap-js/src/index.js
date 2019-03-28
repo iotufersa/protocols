@@ -1,12 +1,36 @@
 /* eslint-disable no-console */
+const Commander = require('commander');
+const {
+    prompt
+} = require('inquirer');
 const clc = require('cli-color');
 const coap = require('coap');
 
+const getQuestion = [{
+    type: 'input',
+    url: 'url',
+    message: 'URL to get: '
+}];
 
 
-function coapRequest(arg, url) {
-    if( arg === 'get' ) {
-        console.log('Fazendo uma requisicao...');
+Commander
+    .version('v0.1.0')
+    .description('CLI to test CoAp protocol');
+
+
+function main() {
+    Commander
+        .command('get')
+        .alis('g')
+        .description('CoAp method GET')
+        .action(() => {
+            prompt(getQuestion).then(answer => getCoap(answer.url));
+        })
+}
+
+function getCoap(url) {
+    if( url ) {
+        console.log(clc.yellow('Make a GET request...'));
         const req = coap.request(url); // init the request
         req.on('response', (res) => {
             
@@ -22,9 +46,8 @@ function coapRequest(arg, url) {
         
         req.end(); // requisition completed
     }
-    else {
-        console.log(clc.red('Argumento inválido!'));
-    }
+    else 
+        console.log(clc.red('Empty url!'));
     
 }
 

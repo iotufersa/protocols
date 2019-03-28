@@ -18,6 +18,7 @@
   "homepage": "https://github.com/iotufersa/protocols#readme",
   "dependencies": {
     "cli-color": "^1.4.0",
-    "coap": "^0.23.1"
+    "coap": "^0.23.1",
+    "commander": "^2.19.0"
   }
 }
