@@ -1,0 +1,25 @@
+{
+  "name": "mqtt-js",
+  "version": "0.1.0",
+  "description": "A simple MQTT test for IoT - iotufersa/protocols",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iotufersa/protocols.git"
+  },
+  "author": "João Goulart",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iotufersa/protocols/issues"
+  },
+  "homepage": "https://github.com/iotufersa/protocols#readme",
+  "dependencies": {
+    "audio-context": "^1.0.3",
+    "cli-color": "^1.4.0",
+    "mqtt": "^2.18.8",
+    "play-sound": "^1.1.3"
+  }
+}
